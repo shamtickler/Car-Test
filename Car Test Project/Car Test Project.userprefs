@@ -1,8 +1,10 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Car.js">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\ParticleTester.js">
     <Files>
-      <File FileName="Assets\Scripts\Car.js" Line="23" Column="24" />
+      <File FileName="..\..\..\Shoots and Larders\Shoots-and-Larders\ShakTheLerp\Assets\Scripts\PlayerCharacterController.js" Line="106" Column="31" />
+      <File FileName="Assets\Scripts\ParticleTester.js" Line="21" Column="34" />
+      <File FileName="Assets\Scripts\MoveForward.js" Line="8" Column="39" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
