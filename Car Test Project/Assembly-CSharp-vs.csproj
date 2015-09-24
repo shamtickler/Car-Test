@@ -5,11 +5,11 @@
 	<Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
 	<ProductVersion>10.0.20506</ProductVersion>
 	<SchemaVersion>2.0</SchemaVersion>
-	<ProjectGuid>{8C3CBAE1-CF32-147B-D331-2AC0A9C71A8B}</ProjectGuid>
+	<ProjectGuid>{DE29322E-0EB5-22BF-22C3-FCA835B90F84}</ProjectGuid>
 	<OutputType>Library</OutputType>
 	<AppDesignerFolder>Properties</AppDesignerFolder>
 	<RootNamespace></RootNamespace>
-	<AssemblyName>Assembly-UnityScript</AssemblyName>
+	<AssemblyName>Assembly-CSharp</AssemblyName>
 	<TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
 	<FileAlignment>512</FileAlignment>
 	<BaseDirectory>Assets</BaseDirectory>
@@ -46,10 +46,7 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\Scripts\Car.js" />
-     <Compile Include="Assets\Scripts\MoveForward.js" />
-     <Compile Include="Assets\Scripts\ParticleTester.js" />
-     <Compile Include="Assets\Scripts\PlayerMovement.js" />
+     <Compile Include="Assets\Scripts\MouseMoveSmooth.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>E:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>
