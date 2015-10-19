@@ -29,10 +29,8 @@ public class GameController : MonoBehaviour {
         //move spawnpoint back and forth whithin the play area
         spawnerMotor.Move(playAreaWidth);
 
-        //set spawnPoint object and heightObject to the correct height
-        //fill in here
-
-        if (Input.GetButtonDown("Fire1"))
+        //actions on mouse click
+        if (Input.GetButtonDown("Fire1") || Input.GetTouch(0).phase == TouchPhase.Began)
         {
             //create the object we are spawning in - spawnObject
             Instantiate(spawnObject, spawnPoint.transform.position, spawnPoint.transform.rotation);
