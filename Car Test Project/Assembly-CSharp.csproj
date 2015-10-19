@@ -48,6 +48,8 @@
      <Compile Include="Assets\Scripts\DropGame\GameController.cs" />
      <Compile Include="Assets\Scripts\DropGame\SmoothFollow.cs" />
      <Compile Include="Assets\Scripts\DropGame\SpawnerMotor.cs" />
+     <Compile Include="Assets\Scripts\DropGame\StackChecker.cs" />
+     <Compile Include="Assets\Scripts\DropGame\UIController.cs" />
      <Compile Include="Assets\Scripts\MouseMoveSmooth.cs" />
      <Compile Include="Assets\Scripts\PlayerController.cs" />
      <Compile Include="Assets\Scripts\PlayerMotor.cs" />

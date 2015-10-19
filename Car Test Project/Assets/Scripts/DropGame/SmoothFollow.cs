@@ -19,4 +19,10 @@ public class SmoothFollow : MonoBehaviour
         transform.position = Vector3.Lerp(transform.position, followObject.transform.position + offset, damping * Time.deltaTime);
 
     }
+
+    public void ChangeOffset(Vector3 _offset)
+    {
+        offset = _offset;
+    }
+
 }
