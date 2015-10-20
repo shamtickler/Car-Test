@@ -17,6 +17,8 @@ public class GameController : MonoBehaviour {
 
     private float height = 1;
     private float speed = 3;
+    private bool spawnerActive = true;
+
     public float speedMultiplier = 1;
     public float playAreaWidth = 4;
 
@@ -41,7 +43,7 @@ public class GameController : MonoBehaviour {
         spawnerMotor.SetSpeed(speed * speedMultiplier);
 
         //actions on mouse click
-        if (Input.GetButtonDown("Fire1"))
+        if (Input.GetButtonDown("Fire1") && spawnerActive)
         {
             //Create a temperary variable to add the new stack to stackList
             GameObject _stack;
@@ -90,6 +92,10 @@ public class GameController : MonoBehaviour {
             _stack.GetComponent<Rigidbody>().isKinematic = false;
             _stack.GetComponent<Rigidbody>().drag = 0;
         }
+
+        //deactivate the spawner
+        spawnerMotor.Stop();
+        spawnerActive = false;
     }
 
     void CalculateSpeed()
@@ -100,6 +106,11 @@ public class GameController : MonoBehaviour {
     public float GetHeight()
     {
         return height;
+    }
+
+    public void RestartLevel()
+    {
+        Application.LoadLevel(Application.loadedLevel);
     }
 
 }

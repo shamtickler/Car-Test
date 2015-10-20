@@ -5,24 +5,29 @@ public class SpawnerMotor : MonoBehaviour {
 
     private bool isMovingRight = true;
     private float speed = 2;
+    private bool isMoving = true;
 
     public void Move(float _playAreaWidth)
     {
-        //move the spawner object
-        if (isMovingRight)
+        //Checks if spawner should be moving
+        if (isMoving)
         {
-            transform.position += Vector3.right * Time.deltaTime * speed;
-            if (transform.position.x > _playAreaWidth)
+            //move the spawner object
+            if (isMovingRight)
             {
-                isMovingRight = false;
+                transform.position += Vector3.right * Time.deltaTime * speed;
+                if (transform.position.x > _playAreaWidth)
+                {
+                    isMovingRight = false;
+                }
             }
-        }
-        else
-        {
-            transform.position += -Vector3.right * Time.deltaTime * speed;
-            if (transform.position.x < -_playAreaWidth)
+            else
             {
-                isMovingRight = true;
+                transform.position += -Vector3.right * Time.deltaTime * speed;
+                if (transform.position.x < -_playAreaWidth)
+                {
+                    isMovingRight = true;
+                }
             }
         }
     }
@@ -31,6 +36,18 @@ public class SpawnerMotor : MonoBehaviour {
     {
         //sets the speed at which the spawner moves
         speed = _speed;
+    }
+
+    public void Stop()
+    {
+        isMoving = false;
+        GetComponent<Renderer>().enabled = false;
+    }
+
+    public void Start()
+    {
+        isMoving = true;
+        GetComponent<Renderer>().enabled = true;
     }
 
 }
