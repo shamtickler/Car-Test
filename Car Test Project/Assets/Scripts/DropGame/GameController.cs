@@ -7,11 +7,15 @@ public class GameController : MonoBehaviour {
     [SerializeField]
     private Camera cam;
     [SerializeField]
+    private GameObject uiControllerObject;
+    [SerializeField]
     private GameObject heightObject;
     [SerializeField]
     private GameObject spawnObject;
     [SerializeField]
     private GameObject spawnPoint;
+    [SerializeField]
+    private GameObject lossMenu;
     [SerializeField]
     private int stacksToCalculate = 9;
 
@@ -24,6 +28,7 @@ public class GameController : MonoBehaviour {
 
     private SpawnerMotor spawnerMotor;
     private SmoothFollow camOffset;
+    private UIController uiController;
     private List<GameObject> stackList = new List<GameObject>();
 
 	// Use this for initialization
@@ -32,6 +37,8 @@ public class GameController : MonoBehaviour {
         height = 1;
         spawnerMotor = spawnPoint.GetComponent<SpawnerMotor>();
         camOffset = cam.GetComponent<SmoothFollow>();
+        uiController = uiControllerObject.GetComponent<UIController>();
+        lossMenu.SetActive(false);
 	}
 	
 	// Update is called once per frame
@@ -43,41 +50,42 @@ public class GameController : MonoBehaviour {
         spawnerMotor.SetSpeed(speed * speedMultiplier);
 
         //actions on mouse click
-        if (Input.GetButtonDown("Fire1") && spawnerActive)
+        if (Input.GetButtonDown("Fire1") || Input.GetTouch(0).phase == TouchPhase.Began)
         {
-            //Create a temperary variable to add the new stack to stackList
-            GameObject _stack;
-
-            //create the object we are spawning in - spawnObject
-            _stack = (GameObject)Instantiate(spawnObject, spawnPoint.transform.position, spawnPoint.transform.rotation);
-
-            //add the new stack (_stack) to the stackList
-            stackList.Add(_stack);
-
-            //add one to the height
-            height += 1;
-
-            heightObject.transform.position += Vector3.up;
-            spawnPoint.transform.position += Vector3.up;
-
-            //disable the rigidbody on the cube down reaching the "stacksToCalculate" variable
-            if (stackList.Count > stacksToCalculate)
+            if (spawnerActive)
             {
-                stackList[(int)(height - 2.0f - stacksToCalculate)].GetComponent<Rigidbody>().isKinematic = true;
+                //Create a temperary variable to add the new stack to stackList
+                GameObject _stack;
+
+                //create the object we are spawning in - spawnObject
+                _stack = (GameObject)Instantiate(spawnObject, spawnPoint.transform.position, spawnPoint.transform.rotation);
+
+                //add the new stack (_stack) to the stackList
+                stackList.Add(_stack);
+
+                //add one to the height
+                height += 1;
+
+                heightObject.transform.position += Vector3.up;
+                spawnPoint.transform.position += Vector3.up;
+
+                //disable the rigidbody on the cube down reaching the "stacksToCalculate" variable
+                if (stackList.Count > stacksToCalculate)
+                {
+                    stackList[(int)(height - 2.0f - stacksToCalculate)].GetComponent<Rigidbody>().isKinematic = true;
+                }
+
+                //Increase spawner speed
+                CalculateSpeed();
             }
-
-            //Increase spawner speed
-            CalculateSpeed();
-
-
-        }
-
-        //on keypress activate the regidbodies on all stacks
-        if (Input.GetKeyDown("f"))
-        {
-            ActivateStacks();
         }
 	
+        //reset all player prefs. TESTING
+        if (Input.GetKeyDown("r"))
+        {
+            PlayerPrefs.DeleteAll();
+        }
+
 	}
 
     //brings camera back to view entire stack. Perhaps show score?
@@ -87,15 +95,24 @@ public class GameController : MonoBehaviour {
         Vector3 _offset = new Vector3(0, -(height / 2.0f), -height);
         camOffset.ChangeOffset(_offset);
 
-        //Re-activates all rigidbodies
-        foreach (GameObject _stack in stackList){
-            _stack.GetComponent<Rigidbody>().isKinematic = false;
-            _stack.GetComponent<Rigidbody>().drag = 0;
-        }
-
         //deactivate the spawner
         spawnerMotor.Stop();
         spawnerActive = false;
+
+        //Check and set HighScore
+        if (height > PlayerPrefs.GetFloat("HighScore"))
+        {
+            PlayerPrefs.SetFloat("HighScore", height);
+            PlayerPrefs.SetFloat("LastRunScore", height);
+            uiController.NewHighScore();
+        }
+        else
+        {
+            PlayerPrefs.SetFloat("LastRunScore", height);
+        }
+
+        //Show ending screen UI
+        lossMenu.SetActive(true);
     }
 
     void CalculateSpeed()
