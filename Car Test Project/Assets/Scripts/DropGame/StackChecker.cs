@@ -4,6 +4,7 @@ using System.Collections;
 public class StackChecker : MonoBehaviour {
 
     public float checkIterations = 10;
+    public float checkDistance = 1;
 
     [SerializeField]
     private GameObject gameControllerObject;
@@ -18,7 +19,7 @@ public class StackChecker : MonoBehaviour {
 	void Start ()
     {
         gameController = gameControllerObject.GetComponent<GameController>();
-        startLeftDist = gameController.playAreaWidth / 2;
+        startLeftDist = gameController.playAreaWidth;
 	}
 	
 
@@ -27,17 +28,20 @@ public class StackChecker : MonoBehaviour {
         if (isStanding)
         {
             float _xDist = -startLeftDist;
-            for (float i = 1; i <= checkIterations; i++)
+            for (float i = 0; i <= checkIterations; i++)
             {
-                float stepSize = (startLeftDist * 2) / checkIterations;
+                float stepSize = startLeftDist / checkIterations;
                 Vector3 rayPosition = transform.position;
                 rayPosition.x = _xDist + (i * stepSize);
                 //Create the ray
                 Ray sensorRay = new Ray(rayPosition, -Vector3.up);
+                //Visualize the test in the inspector
+                Debug.DrawLine(rayPosition, (rayPosition - (Vector3.up * checkDistance)), Color.cyan);
                 //Test if it hits the stack
-                if (Physics.Raycast(sensorRay, out hit, 2.0f))
+                if (Physics.Raycast(sensorRay, out hit, checkDistance))
                 {
                     sensorCounter += 1;
+                   
                 }
 
 

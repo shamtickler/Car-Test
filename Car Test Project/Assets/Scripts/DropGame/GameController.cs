@@ -26,6 +26,8 @@ public class GameController : MonoBehaviour {
     public float speedMultiplier = 1;
     public float playAreaWidth = 4;
 
+    private AudioSource source;
+    private StackerInfo stackerInfo;
     private SpawnerMotor spawnerMotor;
     private SmoothFollow camOffset;
     private UIController uiController;
@@ -36,6 +38,8 @@ public class GameController : MonoBehaviour {
         //set starting variables
         height = 1;
         spawnerMotor = spawnPoint.GetComponent<SpawnerMotor>();
+        source = GetComponent<AudioSource>();
+        stackerInfo = spawnObject.GetComponent<StackerInfo>();
         camOffset = cam.GetComponent<SmoothFollow>();
         uiController = uiControllerObject.GetComponent<UIController>();
         lossMenu.SetActive(false);
@@ -56,6 +60,9 @@ public class GameController : MonoBehaviour {
             {
                 //Create a temperary variable to add the new stack to stackList
                 GameObject _stack;
+
+                //Play the sound effect
+                source.PlayOneShot(stackerInfo.placeStack);
 
                 //create the object we are spawning in - spawnObject
                 _stack = (GameObject)Instantiate(spawnObject, spawnPoint.transform.position, spawnPoint.transform.rotation);
@@ -117,7 +124,8 @@ public class GameController : MonoBehaviour {
 
     void CalculateSpeed()
     {
-        speed = ((height / 15) + 3);
+        speed = ((height / 25) + 3);
+        //speed = 3.0f;
     }
 
     public float GetHeight()
