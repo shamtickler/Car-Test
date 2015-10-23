@@ -38,4 +38,10 @@ public class UIController : MonoBehaviour {
     {
         newHighScoreIcon.active = true;
     }
+
+    //Go to main menu
+    public void GoToMenu()
+    {
+        Application.LoadLevel("MegaStackerMenu");
+    }
 }
