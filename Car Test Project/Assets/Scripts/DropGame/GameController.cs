@@ -11,13 +11,14 @@ public class GameController : MonoBehaviour {
     [SerializeField]
     private GameObject heightObject;
     [SerializeField]
-    private GameObject spawnObject;
-    [SerializeField]
     private GameObject spawnPoint;
     [SerializeField]
     private GameObject lossMenu;
     [SerializeField]
     private int stacksToCalculate = 9;
+
+    private GameObject stacker;
+    private GameObject variableObject;
 
     private float height = 1;
     private float speed = 3;
@@ -35,18 +36,30 @@ public class GameController : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+
+        //Find variable object and use its stacker values from menu to select stacker
+        variableObject = GameObject.FindWithTag("Variable");
+        stacker = variableObject.GetComponent<Variables>().currentStacker;
+
+
         //set starting variables
         height = 1;
         spawnerMotor = spawnPoint.GetComponent<SpawnerMotor>();
         source = GetComponent<AudioSource>();
-        stackerInfo = spawnObject.GetComponent<StackerInfo>();
         camOffset = cam.GetComponent<SmoothFollow>();
         uiController = uiControllerObject.GetComponent<UIController>();
         lossMenu.SetActive(false);
-	}
+        stackerInfo = stacker.GetComponent<StackerInfo>();
+    }
 	
 	// Update is called once per frame
 	void Update () {
+
+        //reset all player prefs. TESTING
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            ActivateStacks();
+        }
 
         //move spawnpoint back and forth whithin the play area
         spawnerMotor.Move(playAreaWidth);
@@ -64,8 +77,8 @@ public class GameController : MonoBehaviour {
                 //Play the sound effect
                 source.PlayOneShot(stackerInfo.placeStack);
 
-                //create the object we are spawning in - spawnObject
-                _stack = (GameObject)Instantiate(spawnObject, spawnPoint.transform.position, spawnPoint.transform.rotation);
+                //create the object we are spawning in - menuVariablesObject.GetComponent<Variables>().currentStacker
+                _stack = (GameObject)Instantiate(stacker, spawnPoint.transform.position, spawnPoint.transform.rotation);
 
                 //add the new stack (_stack) to the stackList
                 stackList.Add(_stack);
@@ -87,12 +100,6 @@ public class GameController : MonoBehaviour {
             }
         }
 	
-        //reset all player prefs. TESTING
-        if (Input.GetKeyDown("r"))
-        {
-            PlayerPrefs.DeleteAll();
-        }
-
 	}
 
     //brings camera back to view entire stack. Perhaps show score?

@@ -36,7 +36,7 @@ public class UIController : MonoBehaviour {
 
     public void NewHighScore()
     {
-        newHighScoreIcon.active = true;
+        newHighScoreIcon.SetActive(true);
     }
 
     //Go to main menu
