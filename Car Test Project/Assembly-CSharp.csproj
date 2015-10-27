@@ -48,6 +48,8 @@
      <Compile Include="Assets\Scripts\DropGame\DontDistroyOnLoad.cs" />
      <Compile Include="Assets\Scripts\DropGame\GameController.cs" />
      <Compile Include="Assets\Scripts\DropGame\MenuExclusive\MenuController.cs" />
+     <Compile Include="Assets\Scripts\DropGame\MenuExclusive\RotateStacker.cs" />
+     <Compile Include="Assets\Scripts\DropGame\MenuExclusive\StackJump.cs" />
      <Compile Include="Assets\Scripts\DropGame\MenuExclusive\VariablesInteractor.cs" />
      <Compile Include="Assets\Scripts\DropGame\SmoothFollow.cs" />
      <Compile Include="Assets\Scripts\DropGame\SpawnerMotor.cs" />
