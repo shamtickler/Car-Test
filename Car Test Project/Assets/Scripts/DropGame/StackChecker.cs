@@ -14,6 +14,7 @@ public class StackChecker : MonoBehaviour {
     private RaycastHit hit;
     private float startLeftDist;
     private float sensorCounter = 1;
+    private bool toldControllerStanding = false;
 
 
 	void Start ()
@@ -57,9 +58,10 @@ public class StackChecker : MonoBehaviour {
                 sensorCounter = 0;
             }
 
-        }else if (!isStanding)
+        }else if (!isStanding && !toldControllerStanding)
         {
             gameController.ActivateStacks();
+            toldControllerStanding = true;
         }
 	}
 }

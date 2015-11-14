@@ -28,11 +28,4 @@ public class Variables : MonoBehaviour {
     {
         currentStacker = stackers[_stackerIndex];
     }
-
-    void OnDestroy()
-    {
-        Debug.Log("I WAS DESTROYED");
-        Debug.Log(Application.loadedLevelName);
-    }
-
 }

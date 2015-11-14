@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using UnityStandardAssets.ImageEffects;
 
 public class GameController : MonoBehaviour {
 
@@ -19,6 +20,7 @@ public class GameController : MonoBehaviour {
 
     private GameObject stacker;
     private GameObject variableObject;
+    private float aberrationTime = 0.0f;
 
     private float height = 1;
     private float speed = 3;
@@ -27,6 +29,7 @@ public class GameController : MonoBehaviour {
     public float speedMultiplier = 1;
     public float playAreaWidth = 4;
 
+    private VignetteAndChromaticAberration aberration;
     private AudioSource source;
     private StackerInfo stackerInfo;
     private SpawnerMotor spawnerMotor;
@@ -50,6 +53,9 @@ public class GameController : MonoBehaviour {
         uiController = uiControllerObject.GetComponent<UIController>();
         lossMenu.SetActive(false);
         stackerInfo = stacker.GetComponent<StackerInfo>();
+        aberration = cam.GetComponent<VignetteAndChromaticAberration>();
+
+        aberrationTime = 1.5f;
     }
 	
 	// Update is called once per frame
@@ -65,12 +71,17 @@ public class GameController : MonoBehaviour {
         spawnerMotor.Move(playAreaWidth);
         //Set the speed of the spawner
         spawnerMotor.SetSpeed(speed * speedMultiplier);
+        //Controls Chromatic Aberration
+        Aberrate();
 
         //actions on mouse click
         if (Input.GetButtonDown("Fire1") || Input.GetTouch(0).phase == TouchPhase.Began)
         {
             if (spawnerActive)
             {
+                //Aberrate that screen!
+                aberrationTime = 0.75f;
+
                 //Create a temperary variable to add the new stack to stackList
                 GameObject _stack;
 
@@ -102,9 +113,27 @@ public class GameController : MonoBehaviour {
 	
 	}
 
-    //brings camera back to view entire stack. Perhaps show score?
+    public void Aberrate()
+    {
+        if (aberrationTime > 0)
+        {
+            aberration.chromaticAberration = Mathf.Pow(1.1f, ((40 * aberrationTime) - 10));
+            aberrationTime -= Time.deltaTime;
+        }
+        else if (aberrationTime <= 0)
+        {
+            aberrationTime = 0.0f;
+            aberration.chromaticAberration = 0.0f;
+        }
+    }
+
+
+    //brings camera back to view entire stack and shows score screen.
     public void ActivateStacks()
     {
+        //ABERRATE YEAH
+        aberrationTime = 1.5f;
+
         //Sets camera to look at entire stack
         Vector3 _offset = new Vector3(0, -(height / 2.0f), -height);
         camOffset.ChangeOffset(_offset);
