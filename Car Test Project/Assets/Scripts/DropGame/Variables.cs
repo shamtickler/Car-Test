@@ -20,12 +20,15 @@ public class Variables : MonoBehaviour {
         {
             DontDestroyOnLoad(transform.gameObject);
             Instance = true;
+            currentStacker = stackers[(int)PlayerPrefs.GetFloat("CurrentStacker")];
         }
+
     }
 
     //Use this function to set the stacker from a menu
     public void SetStacker(int _stackerIndex)
     {
         currentStacker = stackers[_stackerIndex];
+        PlayerPrefs.SetFloat("CurrentStacker", _stackerIndex);
     }
 }

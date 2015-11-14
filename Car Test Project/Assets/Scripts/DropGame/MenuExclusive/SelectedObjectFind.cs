@@ -13,6 +13,7 @@ public class SelectedObjectFind : MonoBehaviour {
     private VariablesInteractor variables;
     private GameObject selectedStacker;
 
+    private Vector3 moveLocation;
 
 	// Use this for initialization
 	void Start () {
@@ -22,6 +23,8 @@ public class SelectedObjectFind : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         selectedStacker = GameObject.Find(variables.currentStacker.name);
-        selectorObject.transform.position = selectedStacker.transform.position + selectorOffset;
+        moveLocation = selectedStacker.transform.position + selectorOffset;
+        moveLocation.y = selectorObject.transform.position.y;
+        selectorObject.transform.position = moveLocation;
 	}
 }
