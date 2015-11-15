@@ -19,6 +19,8 @@ public class GameController : MonoBehaviour {
     private int stacksToCalculate = 9;
     [SerializeField]
     private GameObject adControllerObject;
+    [SerializeField]
+    private float playsBeforeAdShows = 4.0f;
 
     private GameObject stacker;
     private GameObject variableObject;
@@ -136,7 +138,7 @@ public class GameController : MonoBehaviour {
         PlayerPrefs.SetFloat("LifetimePlays", PlayerPrefs.GetFloat("LifetimePlays") + 1.0f);
         //Figure out if an ad should show or not and then show one
         PlayerPrefs.SetFloat("PlaysSinceAd", PlayerPrefs.GetFloat("PlaysSinceAd") + 1.0f);
-        if (PlayerPrefs.GetFloat("PlaysSinceAd") >= 3.0f)
+        if (PlayerPrefs.GetFloat("PlaysSinceAd") >= playsBeforeAdShows)
         {
             adController.ShowAd();
             PlayerPrefs.SetFloat("PlaysSinceAd", 0.0f);
