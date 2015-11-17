@@ -25,11 +25,10 @@ public class GameController : MonoBehaviour {
     private GameObject stacker;
     private GameObject variableObject;
 
-    private float height = 1;
-    private float speed = 3;
+    private float height = 0;
+    private float speed;
     private bool spawnerActive = true;
 
-    public float speedMultiplier = 1;
     public float playAreaWidth = 4;
 
     private AudioSource source;
@@ -51,7 +50,7 @@ public class GameController : MonoBehaviour {
 
 
         //set starting variables and script referances
-        height = 1;
+        height = 0;
         spawnerMotor = spawnPoint.GetComponent<SpawnerMotor>();
         source = GetComponent<AudioSource>();
         camOffset = cam.GetComponent<SmoothFollow>();
@@ -59,6 +58,9 @@ public class GameController : MonoBehaviour {
         lossMenu.SetActive(false);
         stackerInfo = stacker.GetComponent<StackerInfo>();
         adController = adControllerObject.GetComponent<AdController>();
+
+        //set the starting speed of the spawner motor
+        CalculateSpeed();
     }
 	
 	// Update is called once per frame
@@ -66,8 +68,7 @@ public class GameController : MonoBehaviour {
 
         //move spawnpoint back and forth whithin the play area
         spawnerMotor.Move(playAreaWidth);
-        //Set the speed of the spawner
-        spawnerMotor.SetSpeed(speed * speedMultiplier);
+        //spawnerMotor.MoveUsingSin(playAreaWidth);
 
         //actions on mouse click
         if (Input.GetButtonDown("Fire1") || Input.GetTouch(0).phase == TouchPhase.Began)
@@ -148,8 +149,11 @@ public class GameController : MonoBehaviour {
 
     void CalculateSpeed()
     {
-        speed = ((height / 25) + 3);
-        //speed = 3.0f;
+        speed = ((height / 25) + 2.5f) * 1.6f;
+        //speed = ((height / 50) + 1.0f);   //use this one when using sin function, hopefully wont need to use sin function
+
+        //Tells the spawner motor the speed that is calculated
+        spawnerMotor.SetSpeed(speed);
     }
 
     public float GetHeight()
