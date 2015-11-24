@@ -11,8 +11,6 @@ public class SpawnerMotor : MonoBehaviour {
 
     public void Move(float _playAreaWidth)
     {
-        //Debugging (this bpm sync is harder then i thought)
-        Debug.Log(speed);
 
 
         //sets location
@@ -68,7 +66,6 @@ public class SpawnerMotor : MonoBehaviour {
         movementLocX = transform.position;
         movementLocX.x = _playAreaWidth * Mathf.Sin(Mathf.PI * Time.time * speed);
         transform.position = movementLocX;
-        Debug.Log("Speed: " + speed);
     }
 
 }

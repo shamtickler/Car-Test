@@ -25,6 +25,7 @@ public class GameController : MonoBehaviour {
     private GameObject stacker;
     private GameObject variableObject;
 
+    private int chits = 0;
     private float height = 0;
     private float speed;
     private bool spawnerActive = true;
@@ -41,6 +42,9 @@ public class GameController : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+        //sets "chits" to ammount of money
+        chits = PlayerPrefs.GetInt("Chits");
+
         //Set Score screen to 0 opacity
         lossMenu.GetComponent<Image>().CrossFadeAlpha(0.0f, 0.1f, false);
 
@@ -111,7 +115,10 @@ public class GameController : MonoBehaviour {
     //brings camera back to view entire stack and shows score screen.
     public void ActivateStacks()
     {
-
+        //recaculates and saves new amount of chits
+        PlayerPrefs.SetInt("Chits", (chits += (int)height));
+        uiController.SetChitIncrease(height);
+        
         //Sets camera to look at entire stack
         Vector3 _offset = new Vector3(0, -(height / 2.0f), -height);
         camOffset.ChangeOffset(_offset);
