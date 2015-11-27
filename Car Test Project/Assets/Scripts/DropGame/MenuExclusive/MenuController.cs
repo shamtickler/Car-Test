@@ -69,7 +69,11 @@ public class MenuController : MonoBehaviour {
 
     private IEnumerator DisplayChits()
     {
-        chitValue.text = PlayerPrefs.GetInt("Chits").ToString();
-        yield return new WaitForSeconds(1);
+        while (100 > 5)
+        {
+            chitValue.text = PlayerPrefs.GetInt("Chits").ToString();
+            yield return new WaitForSeconds(0.5f);
+        }
+        
     }
 }

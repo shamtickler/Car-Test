@@ -53,9 +53,9 @@ public class Variables : MonoBehaviour {
     //Use this function to access the array
     public GameObject GetStacker(int _stackerIndex)
     {
-        GameObject _requestedStacker;
-        _requestedStacker = stackers[_stackerIndex];
-        return _requestedStacker;
+        //GameObject _requestedStacker;
+        //_requestedStacker = stackers[_stackerIndex];
+        return stackers[_stackerIndex];
     }
 
 

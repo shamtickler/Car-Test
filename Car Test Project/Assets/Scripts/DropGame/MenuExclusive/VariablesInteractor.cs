@@ -36,6 +36,7 @@ public class VariablesInteractor : MonoBehaviour {
         //next, show purchase ui if not unlocked or select it if it is unlocked
         if (_isUnlocked)
         {
+            buyUI.SetActive(false);
             _variables.GetComponent<Variables>().SetStacker(_stackerIndex);
             currentStacker = _variables.GetComponent<Variables>().currentStacker;
 
@@ -43,22 +44,31 @@ public class VariablesInteractor : MonoBehaviour {
         else
         {
             //find out what stacker it is
-            currentStackerBuy = _variables.GetComponent<Variables>().GetStacker(_stackerIndex);
+            //currentStackerBuy = _variables.GetComponent<Variables>().GetStacker(_stackerIndex);
 
             //set price visual
-            chitCostTxt.text = currentStackerBuy.GetComponent<StackerInfo>().chitCost.ToString();
+            //chitCostTxt.text = currentStackerBuy.GetComponent<StackerInfo>().chitCost.ToString();
+
+            //get the price of the clicked stacker and set the text visual
+            chitCostTxt.text = _variables.GetComponent<Variables>().GetStacker(_stackerIndex).GetComponent<StackerInfo>().chitCost.ToString();
 
             //if the buy ui is already enabled is disables it instead
             if (buyUI.activeSelf == true)
             {
-                buyUI.SetActive(false);
+                //check if the clicked stacker already has the buy menu shown, if so it hides it
+                if (currentStackerBuy == _variables.GetComponent<Variables>().GetStacker(_stackerIndex))
+                {
+                    buyUI.SetActive(false);
+                }
             }
             else
             {
                 buyUI.SetActive(true);
             }
         }
-        
+
+        //Finally set the variable to the stacker that was just clicked for future referance in this method
+        currentStackerBuy = _variables.GetComponent<Variables>().GetStacker(_stackerIndex);
     }
 
     public void BuyStacker()

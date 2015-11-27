@@ -6,11 +6,15 @@ public class SelectedObjectFind : MonoBehaviour {
     [SerializeField]
     GameObject variablesObject;
     [SerializeField]
+    private GameObject buyUI;
+
+    [Header("Selector")]
+    [SerializeField]
     GameObject selectorObject;
     [SerializeField]
     Vector3 selectorOffset;
-    [SerializeField]
-    private GameObject buyUI;
+
+   
 
     private VariablesInteractor variables;
     private GameObject selectedStacker;
