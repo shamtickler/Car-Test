@@ -3,13 +3,65 @@ using System.Collections;
 
 public class StackerInfo : MonoBehaviour {
 
+    public int chitCost = 100;
     public AudioClip placeStack;
-
+    public bool overrideUnlock = false;
+    public bool isUnlocked = false;
+    private Renderer[] rend;
     [SerializeField]
     private bool randomizeRotation = false;
+    [SerializeField]
+    private Material regularMat;
+    [SerializeField]
+    private Material blackoutMat;
+
+    [SerializeField]
+    private GameObject[] prefabObjects;
 
     void Start()
     {
+        if (overrideUnlock)
+        {
+            PlayerPrefs.SetInt(gameObject.name, 1);
+        }
+        int temp = 0;
+
+        //Set renderer referance
+        rend = new Renderer[prefabObjects.Length];
+        foreach(GameObject i in prefabObjects)
+        {
+            rend[temp] = i.GetComponent<Renderer>();
+            temp++;
+        }
+
+        //set material and variales based on isUnlocked variable
+        //if it is not unlocked it starts the coroutine to check when it is unlocked
+        //if it is already unlocked it should not become locked again so coroutine does not need to run in this case
+        if ((PlayerPrefs.GetInt(gameObject.name) == 1) || overrideUnlock)
+        {
+            //set local variable to true
+            isUnlocked = true;
+            //set material to regular
+            int tempmat = 0;
+            foreach (GameObject i in prefabObjects)
+            {
+                foreach (Material m in rend[temp].materials)
+                {
+                    rend[temp].materials[tempmat].CopyPropertiesFromMaterial(regularMat);
+                    tempmat++;
+                }
+                temp++;
+            }
+
+        }
+        else
+        {
+            isUnlocked = false;
+            StartCoroutine(UpdateMaterials());
+        }
+
+
+        //randomize rotation for all 6 sides if that is selected Default: false
         if (randomizeRotation)
         {
             float x = Random.Range(0.0f, 6.0f);
@@ -38,6 +90,63 @@ public class StackerInfo : MonoBehaviour {
             }
 
         }
+    }
+
+
+    //using a coroutine to update object material so it doesnt check every fram
+    IEnumerator UpdateMaterials()
+    {
+        while (1 > 0)
+        {
+
+            //checks if object is unlocked
+            if ((PlayerPrefs.GetInt(gameObject.name) == 1) || overrideUnlock)
+            {
+                isUnlocked = true;
+            }
+            else
+            {
+                isUnlocked = false;
+            }
+
+
+
+            //changes material to not be blacked out
+            if (isUnlocked)
+            {
+                //set material to normal
+                int temp = 0;
+                int tempmat = 0;
+                foreach (GameObject i in prefabObjects)
+                {
+                    foreach (Material m in rend[temp].materials)
+                    {
+                        rend[temp].materials[tempmat].CopyPropertiesFromMaterial(regularMat);
+                        tempmat++;
+                    }
+                    temp++;
+                }
+            }
+            else
+            {
+                //set material to blackout
+                int temp = 0;
+                int tempmat = 0;
+                foreach (GameObject i in prefabObjects)
+                {
+                    foreach(Material m in rend[temp].materials)
+                    {
+                        rend[temp].materials[tempmat].CopyPropertiesFromMaterial(blackoutMat);
+                        tempmat++;
+                    }
+                    temp++;
+                }
+            }
+
+            yield return new WaitForSeconds(0.5f);
+
+        }
+  
     }
 
 }

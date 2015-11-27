@@ -9,6 +9,7 @@ public class Variables : MonoBehaviour {
     public static bool Instance;
 
 
+
     void Awake()
     {
         DontDestroyOnLoad(transform.gameObject);
@@ -31,4 +32,31 @@ public class Variables : MonoBehaviour {
         currentStacker = stackers[_stackerIndex];
         PlayerPrefs.SetFloat("CurrentStacker", _stackerIndex);
     }
+
+    //check if the stacker is unlocked or not and tells variableinteractor
+    public bool CheckIfUnlocked(int _stackerIndex)
+    {
+        bool _isUnlocked;
+        if (PlayerPrefs.GetInt(stackers[_stackerIndex].name) > 0)
+        {
+            _isUnlocked = true;
+        }
+        else
+        {
+            _isUnlocked = false;
+        }
+
+        //returns the verdict to variableinteractor
+        return _isUnlocked;
+    }
+
+    //Use this function to access the array
+    public GameObject GetStacker(int _stackerIndex)
+    {
+        GameObject _requestedStacker;
+        _requestedStacker = stackers[_stackerIndex];
+        return _requestedStacker;
+    }
+
+
 }

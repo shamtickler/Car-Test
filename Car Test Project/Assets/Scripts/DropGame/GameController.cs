@@ -92,6 +92,11 @@ public class GameController : MonoBehaviour {
                 //add the new stack (_stack) to the stackList
                 stackList.Add(_stack);
 
+                //set some properties of the new stack and remove some components
+               StackerInfo sis;
+                sis = _stack.GetComponent<StackerInfo>();
+                Destroy(sis);
+
                 //add one to the height
                 height += 1;
 

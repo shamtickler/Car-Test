@@ -10,6 +10,8 @@ public class MenuController : MonoBehaviour {
     private AudioClip selectSounds;
     [SerializeField]
     private Camera myCamera;
+    [SerializeField]
+    private Text chitValue;
 
 
     private AudioSource source;
@@ -21,10 +23,11 @@ public class MenuController : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         source = GetComponent<AudioSource>();
+        StartCoroutine(DisplayChits());
     }
-	
-	// Update is called once per frame
-	void Update () {
+
+    // Update is called once per frame
+    void Update () {
         transform.position = Vector3.Lerp(transform.position, xLoc, Time.deltaTime * movementSpeed);
         
 	}
@@ -64,4 +67,9 @@ public class MenuController : MonoBehaviour {
         source.PlayOneShot(selectSounds);
     }
 
+    private IEnumerator DisplayChits()
+    {
+        chitValue.text = PlayerPrefs.GetInt("Chits").ToString();
+        yield return new WaitForSeconds(1);
+    }
 }
