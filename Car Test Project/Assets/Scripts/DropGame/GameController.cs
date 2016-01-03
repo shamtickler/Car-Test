@@ -153,7 +153,7 @@ public class GameController : MonoBehaviour {
         PlayerPrefs.SetFloat("PlaysSinceAd", PlayerPrefs.GetFloat("PlaysSinceAd") + 1.0f);
         if (PlayerPrefs.GetFloat("PlaysSinceAd") >= playsBeforeAdShows)
         {
-            adController.ShowAd();
+           // adController.ShowAd();
             PlayerPrefs.SetFloat("PlaysSinceAd", 0.0f);
         }
         

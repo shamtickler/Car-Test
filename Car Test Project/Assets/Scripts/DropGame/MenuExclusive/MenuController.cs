@@ -13,7 +13,7 @@ public class MenuController : MonoBehaviour {
     [SerializeField]
     private Text chitValue;
 
-
+    private AdController adControl;
     private AudioSource source;
 
     //Change this to canvas location
@@ -22,6 +22,7 @@ public class MenuController : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+        adControl = GetComponent<AdController>();
         source = GetComponent<AudioSource>();
         StartCoroutine(DisplayChits());
     }
@@ -75,5 +76,10 @@ public class MenuController : MonoBehaviour {
             yield return new WaitForSeconds(0.5f);
         }
         
+    }
+
+    public void PlayRewardedAds()
+    {
+        adControl.ShowRewardedAd();
     }
 }

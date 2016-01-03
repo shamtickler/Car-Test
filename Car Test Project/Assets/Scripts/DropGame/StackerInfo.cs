@@ -4,6 +4,7 @@ using System.Collections;
 public class StackerInfo : MonoBehaviour {
 
     public int chitCost = 100;
+    public float stackHeight = 1;
     public AudioClip placeStack;
     public bool overrideUnlock = false;
     public bool isUnlocked = false;
