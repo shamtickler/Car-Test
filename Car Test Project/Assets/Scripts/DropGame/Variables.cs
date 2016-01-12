@@ -6,12 +6,16 @@ public class Variables : MonoBehaviour {
     public GameObject[] stackers;
     public GameObject currentStacker;
 
+    public int activePower = 0;
+    public string[] powerNameList;
+
     public static bool Instance;
 
 
 
     void Awake()
     {
+        Application.targetFrameRate = 30;
         DontDestroyOnLoad(transform.gameObject);
         if (Instance)
         {
@@ -58,5 +62,9 @@ public class Variables : MonoBehaviour {
         return stackers[_stackerIndex];
     }
 
+    public void SetPower(int _power)
+    {
+        activePower = _power;
+    }
 
 }

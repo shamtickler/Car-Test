@@ -16,6 +16,8 @@ public class UIController : MonoBehaviour {
     private GameObject gameControllerObject;
     [SerializeField]
     private Text chitValue;
+    [SerializeField]
+    private Image powerBar;
 
     private bool onChitRoutine = true;
     private float currentChits = 0;
@@ -89,7 +91,6 @@ public class UIController : MonoBehaviour {
         
         if (onChitRoutine)
         {
-            Debug.Log("coroutine is running");
             //set routine back to false so it doesnt all go right away
             onChitRoutine = false;
             //Increase the chit number
@@ -104,6 +105,11 @@ public class UIController : MonoBehaviour {
             onChitRoutine = true;
         }
         
+    }
+
+    public void UpdatePowerBar(float _fillAmmount)
+    {
+        powerBar.fillAmount = _fillAmmount;
     }
 
 }

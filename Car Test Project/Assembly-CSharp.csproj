@@ -53,6 +53,8 @@
      <Compile Include="Assets\Scripts\DropGame\MenuExclusive\SelectedObjectFind.cs" />
      <Compile Include="Assets\Scripts\DropGame\MenuExclusive\StackJump.cs" />
      <Compile Include="Assets\Scripts\DropGame\MenuExclusive\VariablesInteractor.cs" />
+     <Compile Include="Assets\Scripts\DropGame\PowerInfo.cs" />
+     <Compile Include="Assets\Scripts\DropGame\PowerUpController.cs" />
      <Compile Include="Assets\Scripts\DropGame\RotateNBob.cs" />
      <Compile Include="Assets\Scripts\DropGame\SmoothFollow.cs" />
      <Compile Include="Assets\Scripts\DropGame\SpawnerMotor.cs" />

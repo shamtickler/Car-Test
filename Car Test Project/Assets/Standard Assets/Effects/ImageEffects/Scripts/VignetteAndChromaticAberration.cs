@@ -17,7 +17,7 @@ namespace UnityStandardAssets.ImageEffects
 
         public AberrationMode mode = AberrationMode.Simple;
         public float intensity = 0.036f;                    // intensity == 0 disables pre pass (optimization)
-        public float chromaticAberration = 0.2f;
+        public float chromaticAberration = 0.0f;
         public float axialAberration = 0.5f;
         public float blur = 0.0f;                           // blur == 0 disables blur pass (optimization)
         public float blurSpread = 0.75f;

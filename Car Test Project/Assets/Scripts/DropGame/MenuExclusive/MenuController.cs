@@ -16,6 +16,8 @@ public class MenuController : MonoBehaviour {
     private AdController adControl;
     private AudioSource source;
 
+    private bool isHome = true;
+
     //Change this to canvas location
     private Vector3 xLoc = Vector3.zero;
 
@@ -30,6 +32,19 @@ public class MenuController : MonoBehaviour {
     // Update is called once per frame
     void Update () {
         transform.position = Vector3.Lerp(transform.position, xLoc, Time.deltaTime * movementSpeed);
+
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            if (isHome == true)
+            {
+                Application.Quit();
+            }
+            else
+            {
+                isHome = true;
+                xLoc.Set(0, 0, 0);
+            }
+        }
         
 	}
 
@@ -43,24 +58,28 @@ public class MenuController : MonoBehaviour {
     public void SelectStackerMenu()
     {
         xLoc.Set(0, 1200, 0);
+        isHome = false;
     }
 
     //go to settings menu
     public void SettingsMenu()
     {
         xLoc.Set(400, 0, 0);
+        isHome = false;
     }
 
     //Go to main screen
     public void MainScreen()
     {
         xLoc.Set(0, 0, 0);
+        isHome = true;
     }
 
     //clear saved data
     public void ResetScores()
     {
         PlayerPrefs.DeleteAll();
+        Application.LoadLevel(Application.loadedLevel);
     }
 
     public void PlaySelectSound()

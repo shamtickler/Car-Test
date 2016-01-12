@@ -21,6 +21,39 @@ public class StackerInfo : MonoBehaviour {
 
     void Start()
     {
+        //
+        //randomize rotation for all 6 sides if that is selected Default: false
+        if (randomizeRotation == true)
+        {
+            float x = Random.Range(0.0f, 6.0f);
+            if (x < 1.0)
+            {
+                transform.Rotate(0, 0, 0);
+            }
+            else if (x > 1.0 && x < 2.0)
+            {
+                transform.Rotate(90, 0, 0);
+            }
+            else if (x > 2.0 && x < 3.0)
+            {
+                transform.Rotate(180, 0, 0);
+            }
+            else if (x > 3.0 && x < 4.0)
+            {
+                transform.Rotate(-90, 0, 0);
+            }
+            else if (x > 4.0 && x < 5.0)
+            {
+                transform.Rotate(0, 90, 0);
+            }
+            else if (x > 5.0)
+            {
+                transform.Rotate(0, 180, 0);
+            }
+
+        }
+
+
         if (overrideUnlock)
         {
             PlayerPrefs.SetInt(gameObject.name, 1);
@@ -62,35 +95,7 @@ public class StackerInfo : MonoBehaviour {
         }
 
 
-        //randomize rotation for all 6 sides if that is selected Default: false
-        if (randomizeRotation)
-        {
-            float x = Random.Range(0.0f, 6.0f);
-            if (x < 1.0)
-            {
-                transform.Rotate(0,0,0);
-            }else if (x>1.0 && x < 2.0)
-            {
-                transform.Rotate(90,0,0);
-            }
-            else if (x > 2.0 && x < 3.0)
-            {
-                transform.Rotate(180,0,0);
-            }
-            else if (x > 3.0 && x < 4.0)
-            {
-                transform.Rotate(-90,0,0);
-            }
-            else if (x > 4.0 && x < 5.0)
-            {
-                transform.Rotate(0,90,0);
-            }
-            else if (x > 5.0)
-            {
-                transform.Rotate(0,180,0);
-            }
-
-        }
+   
     }
 
 
