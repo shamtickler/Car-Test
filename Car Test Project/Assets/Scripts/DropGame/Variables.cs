@@ -7,7 +7,8 @@ public class Variables : MonoBehaviour {
     public GameObject currentStacker;
 
     public int activePower = 0;
-    public string[] powerNameList;
+    public GameObject[] powerupList;
+    //public GameObject[] powerupTransformList;
 
     public static bool Instance;
 
@@ -26,6 +27,9 @@ public class Variables : MonoBehaviour {
             DontDestroyOnLoad(transform.gameObject);
             Instance = true;
             currentStacker = stackers[(int)PlayerPrefs.GetFloat("CurrentStacker")];
+
+
+          
         }
 
     }

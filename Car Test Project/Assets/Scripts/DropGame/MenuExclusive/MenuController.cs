@@ -79,6 +79,7 @@ public class MenuController : MonoBehaviour {
     public void ResetScores()
     {
         PlayerPrefs.DeleteAll();
+        PlayerPrefs.SetInt("CurrentStacker", 0);
         Application.LoadLevel(Application.loadedLevel);
     }
 

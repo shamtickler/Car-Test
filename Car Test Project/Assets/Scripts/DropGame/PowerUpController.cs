@@ -5,6 +5,7 @@ using UnityStandardAssets.ImageEffects;
 public class PowerUpController : MonoBehaviour {
 
     public GameObject cam;
+    public GameObject circularBar;
 
     public GameObject[] powerupButtons;
 
@@ -19,8 +20,18 @@ public class PowerUpController : MonoBehaviour {
 
         //Find variable object and use its stacker values from menu to select stacker
         variableObject = GameObject.FindWithTag("Variable");
+        temp = variableObject.GetComponent<Variables>().activePower;
+        GameObject tempObject = variableObject.GetComponent<Variables>().powerupList[(int)temp];
+        //check to see if the object is unlocked, only really matters for 0 because it is the default
+        if (PlayerPrefs.GetInt(tempObject.name) == 1)
+        {
+            SetPowerUp(variableObject.GetComponent<Variables>().activePower);
 
-        SetPowerUp(variableObject.GetComponent<Variables>().activePower);
+        }
+        else
+        {
+            HideCircleBar();
+        }
 
     }
 	
@@ -71,5 +82,10 @@ public class PowerUpController : MonoBehaviour {
         {
             timeSlowActive = true;
         }
+    }
+    
+    public void HideCircleBar()
+    {
+        circularBar.SetActive(false);
     }
 }

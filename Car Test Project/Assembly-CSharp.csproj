@@ -48,7 +48,9 @@
      <Compile Include="Assets\Scripts\DropGame\DontDistroyOnLoad.cs" />
      <Compile Include="Assets\Scripts\DropGame\GameController.cs" />
      <Compile Include="Assets\Scripts\DropGame\MenuExclusive\AdController.cs" />
+     <Compile Include="Assets\Scripts\DropGame\MenuExclusive\FollowPowerup.cs" />
      <Compile Include="Assets\Scripts\DropGame\MenuExclusive\MenuController.cs" />
+     <Compile Include="Assets\Scripts\DropGame\MenuExclusive\PowerupBuyController.cs" />
      <Compile Include="Assets\Scripts\DropGame\MenuExclusive\RotateStacker.cs" />
      <Compile Include="Assets\Scripts\DropGame\MenuExclusive\SelectedObjectFind.cs" />
      <Compile Include="Assets\Scripts\DropGame\MenuExclusive\StackJump.cs" />
