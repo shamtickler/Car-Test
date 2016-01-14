@@ -10,9 +10,6 @@ public class PowerupBuyController : MonoBehaviour {
     public GameObject buyMenu;
     public Text priceText;
 
-    private GameObject activePower = null;
-    private RectTransform activePowerRect;
-
     private GameObject purchasablePower;
     private RectTransform purchasablePowerRect;
 
@@ -29,22 +26,22 @@ public class PowerupBuyController : MonoBehaviour {
         buyMenu.transform.position = powerupTransformList[purchasablePowerIndex].transform.position;
 
         // if there is no active power then simply hide the halo
-        if (activePower == null)
-        {
-            halo.SetActive(false);
-        }
-        else
+        if (PlayerPrefs.HasKey("ActivePower"))
         {
             halo.SetActive(true);
         }
-     //halo.GetComponent<RectTransform>().position = activePower.GetComponent<RectTransform>().position;
+        else
+        {
+            halo.SetActive(false);
+        }
+     halo.transform.position = powerupTransformList[PlayerPrefs.GetInt("ActivePower")].transform.position;
 
-     
 
 
 
-    //end Update
-	}
+
+        //end Update
+    }
 
 
 
@@ -76,6 +73,7 @@ public class PowerupBuyController : MonoBehaviour {
             purchasablePower.GetComponent<PowerInfo>().UnlockSelf();
             buyMenu.SetActive(false);
             buyMenuisShowing = false;
+            PlayerPrefs.SetInt("ActivePower", purchasablePower.GetComponent<PowerInfo>().myPowerupIndex);
         }
     }
 }

@@ -16,6 +16,7 @@ public class Variables : MonoBehaviour {
 
     void Awake()
     {
+        activePower = PlayerPrefs.GetInt("ActivePower");
         Application.targetFrameRate = 30;
         DontDestroyOnLoad(transform.gameObject);
         if (Instance)

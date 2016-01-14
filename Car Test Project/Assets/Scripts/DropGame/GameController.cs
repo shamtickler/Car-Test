@@ -37,10 +37,14 @@ public class GameController : MonoBehaviour {
     private SmoothFollow camOffset;
     private UIController uiController;
     private AdController adController;
-    private List<GameObject> stackList = new List<GameObject>();
+    [HideInInspector]
+    public List<GameObject> stackList = new List<GameObject>();
 
 	// Use this for initialization
 	void Start () {
+        //resets timeScale in case shit happens
+        Time.timeScale = 1;
+
         //stars coroutine for stopping jonathans cheating
         StartCoroutine(StackPlaceTimer());
         //sets "chits" to ammount of money
@@ -82,6 +86,9 @@ public class GameController : MonoBehaviour {
     //brings camera back to view entire stack and shows score screen.
     public void ActivateStacks()
     {
+        //hides powerup button
+        gameObject.GetComponent<PowerUpController>().HideAllButtons();
+
         //recaculates and saves new amount of chits
         PlayerPrefs.SetInt("Chits", (chits += (int)height));
         uiController.SetChitIncrease(height);
@@ -128,6 +135,14 @@ public class GameController : MonoBehaviour {
         return height;
     }
 
+    public void LowerHeightBy(float _ammount)
+    {
+        //height -= _ammount;
+        heightObject.transform.position -= Vector3.up * _ammount;
+        spawnPoint.transform.position -= Vector3.up * _ammount;
+    }
+
+
     public void RestartLevel()
     {
         Application.LoadLevel(Application.loadedLevel);
@@ -154,7 +169,7 @@ public class GameController : MonoBehaviour {
     {
             if (spawnerActive && (canPlaceStack == true))
             {
-                //sets the ability to place a stack to null, breaks jonathans cheats
+                //sets the ability to place a stack to null, fixes being able to just spam place blocks and never lose
                 canPlaceStack = false;
 
                 //Create a temperary variable to add the new stack to stackList
@@ -193,7 +208,8 @@ public class GameController : MonoBehaviour {
                 float _temp;
                 _temp = _stack.transform.position.x - stackList[(int)(height - 2.0f)].transform.position.x;
                 _temp = Mathf.Abs(_temp);
-                uiController.UpdatePowerBar(_temp);
+                gameObject.GetComponent<PowerUpController>().AddToPowerMeter(_temp);
+                //uiController.UpdatePowerBar(_temp);
             }
     }
 

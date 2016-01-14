@@ -16,8 +16,6 @@ public class UIController : MonoBehaviour {
     private GameObject gameControllerObject;
     [SerializeField]
     private Text chitValue;
-    [SerializeField]
-    private Image powerBar;
 
     private bool onChitRoutine = true;
     private float currentChits = 0;
@@ -107,9 +105,5 @@ public class UIController : MonoBehaviour {
         
     }
 
-    public void UpdatePowerBar(float _fillAmmount)
-    {
-        powerBar.fillAmount = _fillAmmount;
-    }
 
 }

@@ -88,6 +88,7 @@ public class VariablesInteractor : MonoBehaviour {
     public void SetPower(int _power)
     {
         _variables.GetComponent<Variables>().SetPower(_power);
+        PlayerPrefs.SetInt("ActivePower", _power);
     }
 
 }

@@ -5,6 +5,7 @@ public class PowerInfo : MonoBehaviour {
 
     public GameObject blackoutObject;
     public int myPowerupIndex;
+    public float aquireDifficulty = 1;
     public float chitCost;
 
 
