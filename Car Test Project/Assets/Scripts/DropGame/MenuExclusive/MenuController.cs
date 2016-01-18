@@ -12,6 +12,8 @@ public class MenuController : MonoBehaviour {
     private Camera myCamera;
     [SerializeField]
     private Text chitValue;
+    [SerializeField]
+    private Text totalGamesPlayed;
 
     private AdController adControl;
     private AudioSource source;
@@ -24,6 +26,7 @@ public class MenuController : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+        totalGamesPlayed.text = "Total Games Played: " + PlayerPrefs.GetFloat("LifetimePlays").ToString();
         adControl = GetComponent<AdController>();
         source = GetComponent<AudioSource>();
         StartCoroutine(DisplayChits());

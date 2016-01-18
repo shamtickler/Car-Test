@@ -28,6 +28,7 @@ public class GameController : MonoBehaviour {
     private float height = 0;
     private float speed;
     private bool spawnerActive = true;
+    private int loopTimes = 1;
 
     public float playAreaWidth = 4;
 
@@ -167,7 +168,18 @@ public class GameController : MonoBehaviour {
 
     public void PlaceStack()
     {
-            if (spawnerActive && (canPlaceStack == true))
+        //find out if double Stack is active. If so It loops the code twice
+        loopTimes = 1;
+        if (gameObject.GetComponent<PowerUpController>().doubleStackActive == true)
+        {
+            loopTimes = 2;
+        }
+       
+
+        if (spawnerActive && (canPlaceStack == true))
+            {
+
+            for (int q = 0; q < loopTimes; q++)
             {
                 //sets the ability to place a stack to null, fixes being able to just spam place blocks and never lose
                 canPlaceStack = false;
@@ -210,7 +222,14 @@ public class GameController : MonoBehaviour {
                 _temp = Mathf.Abs(_temp);
                 gameObject.GetComponent<PowerUpController>().AddToPowerMeter(_temp);
                 //uiController.UpdatePowerBar(_temp);
+
+            if (q >= 1)
+                {
+                    gameObject.GetComponent<PowerUpController>().DecreaseDoubleStackCount();
+                }
             }
+
+        }
     }
 
 }

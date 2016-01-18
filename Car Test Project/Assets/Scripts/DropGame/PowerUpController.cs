@@ -7,22 +7,27 @@ public class PowerUpController : MonoBehaviour {
 
     public GameObject cam;
     public GameObject gameController;
+    public Text multiplierText;
     public GameObject circularBar;
     public Image fillBar;
 
     public GameObject[] powerupButtons;
 
     public float timeSlowDuration = 3;
+    public float doubleStackTimes = 4;
+    private float doubleStacksTimesLeft;
 
     private float fillBarAmmount;
     private GameController GC;
     private GameObject variableObject;
     private int activePowerup;
-    private bool timeSlowActive;
+    [HideInInspector]
+    public bool doubleStackActive = false;
+    private bool timeSlowActive = false;
     private float temp = 0;
 	// Use this for initialization
 	void Start () {
-
+        doubleStacksTimesLeft = doubleStackTimes;
         //Set GC - "GameController" Script refrence
         GC = gameController.GetComponent<GameController>();
 
@@ -45,6 +50,22 @@ public class PowerUpController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+
+        //change the multiplier text object to stuff kk
+        if (doubleStackActive == true)
+        {
+            multiplierText.text = doubleStacksTimesLeft.ToString()+ "X";
+            multiplierText.gameObject.SetActive(true);
+        }else if(timeSlowActive == true)
+        {
+            string tempString = System.Math.Round(((timeSlowDuration / 2) - temp), 2).ToString();
+            multiplierText.text = tempString;
+            multiplierText.gameObject.SetActive(true);
+        }
+        else
+        {
+            multiplierText.gameObject.SetActive(false);
+        }
 
         //Only allow a powerup to be used when the bar is full
         if (fillBarAmmount < 1)
@@ -135,10 +156,19 @@ public class PowerUpController : MonoBehaviour {
 
     public void DoubleStacks()
     {
-
-
+        doubleStackActive = true;
         //clear power meter
         fillBarAmmount = 0;
+    }
+
+    public void DecreaseDoubleStackCount()
+    {
+        doubleStacksTimesLeft -= 1;
+        if (doubleStacksTimesLeft <= 0)
+        {
+            doubleStackActive = false;
+            doubleStacksTimesLeft = doubleStackTimes;
+        }
     }
     
     public void HideCircleBar()
@@ -148,7 +178,7 @@ public class PowerUpController : MonoBehaviour {
 
     public void AddToPowerMeter(float _ammount)
     {
-        if (_ammount < 1)
+        if ((_ammount < 1) && doubleStackActive == false)
         {
             fillBarAmmount += ((-_ammount) / 5 + 0.2f) / variableObject.GetComponent<Variables>().powerupList[activePowerup].GetComponent<PowerInfo>().aquireDifficulty;
         }
